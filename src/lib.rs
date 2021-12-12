@@ -84,11 +84,7 @@ where
         }
     }
 
-    fn recursive_pre_order_traversal<'a>(
-        &self,
-        v: &mut Vec<&'a T>,
-        root: &'a BinarySearchTree<T>,
-    ) {
+    fn recursive_pre_order_traversal<'a>(&self, v: &mut Vec<&'a T>, root: &'a BinarySearchTree<T>) {
         if let BinarySearchTree::Node { value, left, right } = root {
             v.push(value);
             self.recursive_pre_order_traversal(v, left);
@@ -107,11 +103,7 @@ where
         }
     }
 
-    fn recursive_in_order_traversal<'a>(
-        &self,
-        v: &mut Vec<&'a T>,
-        root: &'a BinarySearchTree<T>,
-    ) {
+    fn recursive_in_order_traversal<'a>(&self, v: &mut Vec<&'a T>, root: &'a BinarySearchTree<T>) {
         if let BinarySearchTree::Node { value, left, right } = root {
             self.recursive_in_order_traversal(v, left);
             v.push(value);
@@ -148,9 +140,7 @@ where
         queue.push_back(self);
 
         while !queue.is_empty() {
-            if let BinarySearchTree::Node { value, left, right } =
-                queue.pop_front().unwrap()
-            {
+            if let BinarySearchTree::Node { value, left, right } = queue.pop_front().unwrap() {
                 v.push(value);
 
                 if let BinarySearchTree::Node { .. } = **left {
