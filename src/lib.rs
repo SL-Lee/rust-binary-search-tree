@@ -4,11 +4,7 @@ pub enum BinarySearchTree<T>
 where
     T: fmt::Debug + PartialOrd,
 {
-    Node {
-        value: T,
-        left: Box<BinarySearchTree<T>>,
-        right: Box<BinarySearchTree<T>>,
-    },
+    Node { value: T, left: Box<BinarySearchTree<T>>, right: Box<BinarySearchTree<T>> },
     Empty,
 }
 
@@ -31,15 +27,13 @@ where
 
     pub fn insert(&mut self, new_value: T) {
         match self {
-            BinarySearchTree::Node {
-                ref value,
-                ref mut left,
-                ref mut right,
-            } => match new_value.partial_cmp(value) {
-                Some(Ordering::Less) => left.insert(new_value),
-                Some(Ordering::Greater) => right.insert(new_value),
-                _ => {}
-            },
+            BinarySearchTree::Node { ref value, ref mut left, ref mut right } => {
+                match new_value.partial_cmp(value) {
+                    Some(Ordering::Less) => left.insert(new_value),
+                    Some(Ordering::Greater) => right.insert(new_value),
+                    _ => {}
+                }
+            }
             BinarySearchTree::Empty => {
                 *self = BinarySearchTree::Node {
                     value: new_value,
@@ -172,10 +166,7 @@ mod tests {
         bst.insert(100);
         bst.insert(37);
         bst.insert(84);
-        assert_eq!(
-            Some(vec![&60, &12, &4, &1, &37, &90, &84, &100]),
-            bst.pre_order_traversal(),
-        );
+        assert_eq!(Some(vec![&60, &12, &4, &1, &37, &90, &84, &100]), bst.pre_order_traversal(),);
     }
 
     #[test]
@@ -189,10 +180,7 @@ mod tests {
         bst.insert(100);
         bst.insert(37);
         bst.insert(84);
-        assert_eq!(
-            Some(vec![&1, &4, &12, &37, &60, &84, &90, &100]),
-            bst.in_order_traversal(),
-        );
+        assert_eq!(Some(vec![&1, &4, &12, &37, &60, &84, &90, &100]), bst.in_order_traversal(),);
     }
 
     #[test]
@@ -206,10 +194,7 @@ mod tests {
         bst.insert(100);
         bst.insert(37);
         bst.insert(84);
-        assert_eq!(
-            Some(vec![&1, &4, &37, &12, &84, &100, &90, &60]),
-            bst.post_order_traversal(),
-        );
+        assert_eq!(Some(vec![&1, &4, &37, &12, &84, &100, &90, &60]), bst.post_order_traversal(),);
     }
 
     #[test]
